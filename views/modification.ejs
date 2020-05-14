@@ -1,0 +1,99 @@
+<html>
+<head>
+  <script src='./angular/angular.min.js'></script>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>ScholarGate</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/blog.css" rel="stylesheet">
+    <link href="css/carousel.css" rel="stylesheet">
+</head>
+<script> var myModule = angular.module("myApp", []) </script>
+<body ng-app='myApp'>
+  <div class="container">
+    <header class="blog-header py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div id="sglogo" class="col-5">
+        <a class="blog-header-logo text-dark" href="#"><strong>ScholarGate</strong></a>
+      </div>
+      <div class="col-3 d-flex justify-content-end align-items-center">
+        <a class="btn btn-sm btn-outline-success" href="/upload">Upload a Paper</a>
+        <a style="margin-left:9px" class="btn btn-sm btn-outline-info" href="/dashboard">View all Papers</a>
+        <a style="margin-left:9px" class="btn btn-sm btn-primary" href="/">Home</a>
+      </div>
+    </div>
+  </header><br>
+
+<!-- TODO: 1. Fetch all papers from the database
+          2. Delete should delete the selected paper from database
+          3. Modify should redirect to /modify_update, while knowing which record to update-->
+  <div class="container">
+    <h4>Admin's Research Papers</h4>
+    <div class="list-group">
+	  <% for (var i=0; i<employees.length; i++) { %>
+		<a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+		<h5 class="mb-1"><%=employees[i].title%></h5>
+		</div>
+        <p class="mb-1"><%=employees[i].authors%></p>
+		<small><%=employees[i].desc%></small>
+        <hr>
+		<button onclick="window.location.href='/delete?fname=<%=employees[i].filename%>'" class="btn btn-danger">Delete</button>
+        <button onclick="window.location.href='/modify_update?fname=<%=employees[i].filename%>'" class="btn btn-warning">Update</button>
+		<%}%>
+      </a>
+    </div>
+  </div>
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.bundle.min.js" ></script>
+<script>
+myModule.controller ("appController",
+   function appController($scope, $http) {
+       /*$http directive is used to communicate to the server */
+       $scope.data = {}
+       $scope.response = {}
+	   
+       $scope.send = function () {
+           /*executed when submit is clicked*/
+   console.log($scope.data.empname);
+           var posting = $http({
+               method: 'POST',
+               url: '/insert',
+               data: $scope.data,
+           }).then (function (response) {
+               /*executed when server responds */
+               console.log(response);
+               $scope.response.data = response.data;
+           },function (error){
+     console.log(error);
+ });
+       }
+   });
+</script>
+</html>

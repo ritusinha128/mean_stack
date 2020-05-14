@@ -1,0 +1,105 @@
+<html>
+<head>
+  <script src='./angular/angular.min.js'></script>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>ScholarGate</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/blog.css" rel="stylesheet">
+    <link href="css/carousel.css" rel="stylesheet">
+</head>
+<script> var myModule = angular.module("myApp", []) </script>
+<body ng-app='myApp'>
+  <div class="container">
+    <header class="blog-header py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div id="sglogo" class="col-5">
+        <a class="blog-header-logo text-dark" href="#"><strong>ScholarGate</strong></a>
+      </div>
+      <div class="col-3 d-flex justify-content-end align-items-center">
+        <a class="btn btn-sm btn-outline-success" href="/upload">Upload a Paper</a>
+        <a style="margin-left:9px" class="btn btn-sm btn-outline-info" href="/dashboard">View all Papers</a>
+      </div>
+    </div>
+  </header><br>
+
+<!-- TODO: Modify selected paper -->
+  <div class="container">
+    <h4> Modify Research Paper </h4>
+    <form ng-controller='appController' ng-submit="send()">
+      <div class="form-group">
+        <label for="paperTitle">Enter Paper Title:</label>
+        <input type="text" class="form-control" id="paperTitle" ng-model="data.paperTitle" >
+        <!--<small id="paperTitleHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+      </div>
+      <div class="form-group">
+        <label for="paperAuthors">Enter Authors:</label>
+        <input type="text" class="form-control" id="paperAuthors" ng-model="data.paperAuthors" >
+      </div>
+      <div class="form-group">
+        <label for="paperDesc">Enter a description of your research paper:</label>
+        <textarea class="form-control" id="paperDesc" rows="3" aria-describedby="paperDescHelp" ng-model="data.paperDesc"></textarea>
+        <small id="paperDescHelp" class="form-text text-muted">Hint: Use your paper's abstract as a description.</small>
+      </div>
+      <button type="submit" class="btn btn-success">Update</button>
+    </form>
+  </div>
+<script>
+	 myModule.controller ("appController",
+        function appController($scope, $http) {
+            /*$http directive is used to communicate to the server */
+            $scope.data = {}
+            $scope.response = {}
+			
+            $scope.send = function () {
+                /*executed when submit is clicked*/          
+				console.log($scope.data.empname);
+                var posting = $http({
+			/*posting to /process_get  */
+                    //method: 'GET',
+                    //url: '/process_get',
+                    //params: $scope.data,
+			/*posting to /process_post*/
+                    method: 'POST',
+                    url: '/modify_update_post',
+                    data: $scope.data,
+                    
+                }).then (function (response) {
+                    /*executed when server responds back*/
+                    console.log(response);
+                    $scope.response.data = response.data;
+                },function (error){
+					console.log(error);
+			});
+            }
+        });
+    </script>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.bundle.min.js" ></script>
+
+</html>

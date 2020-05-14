@@ -1,0 +1,134 @@
+<html>
+<head>
+  <script src='./angular/angular.min.js'></script>
+<script src='./angular/ng-file-upload.min.js'></script>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>ScholarGate</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/blog.css" rel="stylesheet">
+    <link href="css/carousel.css" rel="stylesheet">
+</head>
+<script> var myModule = angular.module("myApp", ['ngFileUpload']) </script>
+<body ng-app='myApp'>
+  <div class="container">
+    <header class="blog-header py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div id="sglogo" class="col-5">
+        <a class="blog-header-logo text-dark" href="#"><strong>ScholarGate</strong></a>
+      </div>
+      <div class="col-3 d-flex justify-content-end align-items-center">
+        <a style="margin-left:9px" class="btn btn-sm btn-outline-warning" href="/modify">Modify Papers</a>
+        <a style="margin-left:9px" class="btn btn-sm btn-outline-info" href="/dashboard">View all Papers</a>
+        <a style="margin-left:9px" class="btn btn-sm btn-primary" href="/">Home</a>
+      </div>
+    </div>
+  </header><br>
+
+<!-- TODO: Upload paper to database -->
+  <div class="container">
+    <h4> Upload a Research Paper </h4>
+    <form ng-controller='appController as up' name="up.upload_form">
+      <div class="form-group">
+        <label for="paperTitle">Enter Paper Title:</label>
+        <input type="text" class="form-control" id="paperTitle" ng-model="up.paperTitle">
+        <!--<small id="paperTitleHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+      </div>
+      <div class="form-group">
+        <label for="paperAuthors">Enter Authors:</label>
+        <input type="text" class="form-control" id="paperAuthors" ng-model="up.paperAuthors">
+      </div>
+      <div class="form-group">
+        <label for="paperDesc">Enter a description of your research paper:</label>
+        <textarea class="form-control" id="paperDesc" rows="3" aria-describedby="paperDescHelp" ng-model="up.paperDesc"></textarea>
+        <small id="paperDescHelp" class="form-text text-muted">Hint: Use your paper's abstract as a description.</small>
+      </div>
+      <div class="form-group">
+        <label for="paperFile">Upload your Research Paper:</label>
+		<input 
+                type="file" 
+                ngf-select 
+				class="form-control-file"
+                ng-model="up.file" 
+				id="file"
+                name="file" 
+                ngf-max-size="20MB" 
+                />
+      </div>
+      <button type="submit" class="btn btn-success" ng-click="up.submit()">Upload</button>
+	  <p>{{up.progress}}</p>
+    </form>
+  </div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.bundle.min.js" ></script>
+<script>
+myModule.controller ("appController", ['Upload','$window', '$http' ,function(Upload,$window,$http){
+    var vm = this;
+    vm.submit = function(){ //function to call on form submit
+        if (vm.upload_form.file.$valid && vm.file) { //check if from is valid
+            vm.upload(vm.file, vm.paperTitle, vm.paperAuthors, vm.paperDesc); //call upload function
+        }
+    }
+    vm.upload = function (file,title, authors, desc) {
+		
+        Upload.upload({
+            url: '/upload', //webAPI exposed to upload the file
+            data:{file:file, 'title': title, 'authors':authors, 'desc':desc} //pass file as data, should be user ng-model
+        }).then(function (resp) {
+				console.log (resp.config.data.file.name);
+				var filename = resp.config.data.file.name;
+				//console.log (user);//upload function returns a promise
+            if(resp.data.error_code === 0){ //validate success
+			    var posting = $http({
+					method:'POST',
+					url:'/upload_meta',
+					data : {'title':title, 'authors':authors, 'desc':desc, 'filename':resp.config.data.file.name},
+				}).then (function (resp){
+                $window.alert('Success ' + filename + 'uploaded. Response: ');
+				$window.location.replace("/dashboard");
+				}, function(error){
+					$window.alert ('error occured');
+				});
+            } else {
+                $window.alert('an error occured');
+            }
+        }, function (resp) { //catch error
+            console.log('Error status: ' + resp.status);
+            $window.alert('Error status: ' + resp.status);
+        }, function (evt) { 
+            console.log(evt);
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+            vm.progress = 'progress: ' + progressPercentage + '% '; // capture upload progress
+        });
+    };
+}]);
+</script>
+</body>
+</html>

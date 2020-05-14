@@ -1,0 +1,176 @@
+<html>
+<head>
+  <script src='./angular/angular.min.js'></script>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>ScholarGate</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/blog.css" rel="stylesheet">
+    <link href="css/carousel.css" rel="stylesheet">
+</head>
+<script> var myModule = angular.module("myApp", []) </script>
+<body ng-app='myApp'>
+  <div class="container">
+    <header class="blog-header py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div id="sglogo" class="col-5">
+        <a class="blog-header-logo text-dark" href="#"><strong>ScholarGate</strong></a>
+      </div>
+      <div class="col-3 d-flex justify-content-end align-items-center">
+        <a class="btn btn-sm btn-outline-secondary" href="#">Trending Papers</a>
+        <a style="margin-left:9px" class="btn btn-sm btn-outline-success" href="/login">Login</a>
+      </div>
+    </div>
+    <p style="margin:10px;font-family:'Merriweather'; font-weight:light;"> The most popular research publications, at your fingertips.</p>
+  </header
+    <br><br>
+    <div class= "container">
+        <form action="search" method="get">
+          <div class="input-group mb-3">
+            <input type="text" id="val"  name="val" class="form-control" placeholder="Search for research publications here..." aria-label="Recipient's username" aria-describedby="button-addon2">
+            <div class="input-group-append">
+              <input class="btn btn-outline-secondary" type="submit"  id="button-addon2">  <a class="text-muted" href="#" aria-label="Search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24" focusable="false"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
+                </a></input>
+            </div>
+          </div>
+		  
+        </form>
+    </div>
+
+    <div class="container">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div style="background-image:url('images/giphy.gif'); background-size: cover;" class="carousel-item active">
+        <div class="container">
+          <div class="carousel-caption text-right">
+            <h1>Transmission Dynamics of Novel Coronavirus Pneumonia</h1>
+            <p>Several studies have estimated basic production number of novel coronavirus pneumonia (NCP). However, the time-varying transmission dynamics of NCP during the outbreak remain unclear. We aimed...</p>
+            <p><a class="btn btn-lg btn-warning" href="#" role="button">Continue Reading</a></p>
+          </div>
+        </div>
+      </div>
+      <div style="background-image:url('images/giphy2.gif'); background-size: cover;" class="carousel-item">
+        <div class="container">
+          <div class="carousel-caption text-right">
+            <h1>Yacc: Yet Another Compiler-Compiler</h1>
+            <p>Computer program input generally has some structure; in fact, every computer program that does input can be thought of as defining an input language which it accepts. An input language...</p>
+            <p><a class="btn btn-lg btn-warning" href="http://dinosaur.compilertools.net/yacc/" role="button">Continue Reading</a></p>
+          </div>
+        </div>
+      </div>
+      <div style="background-image:url('images/giphy.gif'); background-size: cover;" class="carousel-item">
+        <div class="container">
+          <div class="carousel-caption text-right">
+            <h1>Advances in Parabolic Trough Solar Power Technology</h1>
+            <p>Parabolic trough solar technology is the most proven and lowest cost large-scale solar power technology available today, primarily because of the nine large commercial-scale solar power plants that are operating in the...</p>
+            <p><a class="btn btn-lg btn-warning" href="#" role="button">Continue Reading</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  </div>
+
+  <div class="container">
+    <h2>Featured Topics</h2>
+    <hr>
+    <button type="button" class="rtop btn btn-primary btn-lg">MATLAB</button><button type="button" class="rtop btn btn-info btn-lg">Journalism</button><button type="button" class="rtop btn btn-success btn-lg">Molecular Biology</button><button type="button" class="rtop btn btn-primary btn-lg">Cell Culture</button>
+    <button type="button" class="rtop btn btn-primary btn-lg">Nanoparticles</button><button type="button" class="rtop btn btn-info btn-lg">Statistics</button><button type="button" class="rtop btn btn-primary btn-lg">Psychology</button><button type="button" class="rtop btn btn-info btn-lg">Mechanical Engineering</button><button type="button" class="rtop btn btn-primary btn-lg">Immunology</button><button type="button" class="rtop btn btn-secondary btn-lg">Real-Time PCR</button><button type="button" class="rtop btn btn-success btn-lg">Data Mining</button><button type="button" class="rtop btn btn-primary btn-lg">Remote Sensing</button><button type="button" class="rtop btn btn-primary btn-lg">Structural Equation Modeling</button>
+
+  </div>
+    <br><br><br>
+  <div class="container">
+    <h2>Popular Publications</h2>
+    <hr>
+    <div class="row mb-2">
+      <div class="col-md-6">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary">World</strong>
+            <h3 class="mb-0">Featured post</h3>
+            <div class="mb-1 text-muted">Nov 12</div>
+            <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="stretched-link">Continue reading</a>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-success">Design</strong>
+            <h3 class="mb-0">Post title</h3>
+            <div class="mb-1 text-muted">Nov 11</div>
+            <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="stretched-link">Continue reading</a>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.bundle.min.js" ></script>
+<script>
+/*myModule.controller ("appController",
+   function appController($scope, $http) {
+       $scope.data = {}
+       $scope.response = {}
+
+       $scope.send = function () {
+
+   console.log($scope.data.empname);
+           var posting = $http({
+               method: 'GET',
+               url: '/search',
+               params: {val: $scope.data.val}
+           })
+       }
+   });*/
+</script>
+</html>
