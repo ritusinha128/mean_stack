@@ -1,6 +1,6 @@
 # mean_stack
 
-hiii, I think its working but I wanted you to check. So just clone this repo, and change directory to the repository. Then use the following command:
+To run this, just clone this repo, and change directory to the repository. Then use the following command:
 
 # docker-compose up -d --build
 
